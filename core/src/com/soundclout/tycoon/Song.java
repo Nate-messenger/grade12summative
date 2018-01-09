@@ -38,11 +38,11 @@ public class Song {
         return this.name;
     }
     /**
-     * Method to increase the rate of the song, based on a star system, five points of a star 
+     * Method to upgrading the rate of the song, based on a star system, five points of a star 
      * Before increasing by a whole star ie: 1.0, 1.2, 1.4 .... 2.0...5.0 
      * @return the new rate of the song
      */
-    public double increaseRate(){
+    public double upgrade(){
         return this.rating + 0.2;
     }
     /**
@@ -52,7 +52,11 @@ public class Song {
     public int sales(){
         //multiply the min profit by the rate the song currently has, then turn it into a integer
         return (int)(this.minSale*this.rating);
-    }
+    } 
+    /**
+     * Method to get the coast to upgrade the song, with a base cost of 50 then being directly related to the rating
+     * @return the new upgrade integer cost
+     */
     public int upgradeCost(){
         //Start with a base cost of 50 then have the copst of the upgrade be in relation to the rating
         return (int)(this.minSale*this.rating)+50;
