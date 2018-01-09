@@ -4,6 +4,8 @@
  */
 package com.soundclout.tycoon;
 
+import com.badlogic.gdx.graphics.Texture;
+
 /**
  *
  * @author millc9988
@@ -14,13 +16,14 @@ public class Player {
  private int yPos;
  private String name;
  private int fame;
- 
- public Player(String name){
+ private Texture icon;
+ public Player(String name, Texture icon){
      this.name = name;
      this.money = 50;
      this.fame = 0;
      this.xPos = 0;
      this.yPos = 0;
+     this.icon = icon;
  }
 //getters
  public int getMoney(){
