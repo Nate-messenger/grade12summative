@@ -47,18 +47,18 @@ public class Song {
     }
     /**
      * Method to find how much profit the song will receive based on the current rating of the song
-     * @return the integer amount of credits to increase the total credits by
+     * @return the amount of credits to increase the total credits by
      */
-    public int sales(){
+    public double sales(){
         //multiply the min profit by the rate the song currently has, then turn it into a integer
-        return (int)(this.minSale*this.rating);
+        return this.minSale*this.rating;
     } 
     /**
      * Method to get the coast to upgrade the song, with a base cost of 50 then being directly related to the rating
-     * @return the new upgrade integer cost
+     * @return the new upgrade cost
      */
-    public int upgradeCost(){
+    public double upgradeCost(){
         //Start with a base cost of 50 then have the copst of the upgrade be in relation to the rating
-        return (int)(this.minSale*this.rating)+50;
+        return (this.minSale*this.rating)+50;
     }
 }
