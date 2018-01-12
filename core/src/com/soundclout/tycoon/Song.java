@@ -19,13 +19,13 @@ public class Song {
     private double time;
 
     /**
-     * Constructor for song
+     * Constructor for song, with a name, and a min cost/sale both equal 50 credits, a base rating of one star, a base time for upgrade of 30sec
      *
      * @param name name of song
      */
     public Song(String name) {
         this.name = name;
-        this.rating = 0;
+        this.rating = 1;
         this.minCost = this.minSale = 50;
         this.time = 30;
     }
@@ -84,7 +84,7 @@ public class Song {
     /**
      * Method to find the upgrade time of the song, with the lowest time being 0;
      * 
-     * @param percent the percentage from the pharm.
+     * @param percent the percentage from the speed.
      * @return and integer time it takes, in seconds
      */
     public double upgradeTime(double percent) {
