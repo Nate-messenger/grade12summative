@@ -86,14 +86,16 @@ public void move(){
 public void render(SpriteBatch batch){
     batch.draw(icon, xPos, yPos);
 }
+
+
 public void upgrade(Upgrade u){
-    if(u.getName =="Speed"){
+    if(u.getName() =="Speed"){
         this.speedUP++;
     }
-    if(u.getName =="Fame"){
+    if(u.getName() =="Fame"){
         this.fameUP++;
     }
-    if(u.getName =="Quality"){
+    if(u.getName() =="Quality"){
         this.qualUP++;
     }
 }
