@@ -76,11 +76,6 @@ public void move(){
     }else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
         this.xPos--;
     }
-    if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-        this.yPos++;
-    }else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-        this.yPos--;
-    }
     
 }
 public void render(SpriteBatch batch){
