@@ -19,7 +19,8 @@ public class Song {
     private double time;
 
     /**
-     * Constructor for song, with a name, and a min cost/sale both equal 50 credits, a base rating of one star, a base time for upgrade of 30sec
+     * Constructor for song, with a name, and a min cost/sale both equal 50
+     * credits, a base rating of one star, a base time for upgrade of 30sec
      *
      * @param name name of song
      */
@@ -82,8 +83,9 @@ public class Song {
     }
 
     /**
-     * Method to find the upgrade time of the song, with the lowest time being 0;
-     * 
+     * Method to find the upgrade time of the song, with the lowest time being
+     * 0;
+     *
      * @param percent the percentage from the speed.
      * @return and integer time it takes, in seconds
      */
@@ -96,5 +98,24 @@ public class Song {
             //Return a zero always when the time isn't less than zero
             return 0;
         }
+    }
+
+    /**
+     * Method to check if the player on the chair to be able to upgrade the
+     * song, based on the player coordinates
+     *
+     * @param x The player being passed in to access the x and y coordinates of
+     * the rapper
+     * @return A boolean to send to the main game
+     */
+    public boolean canUpgrade(Player x) {
+        //Check if the player is inbetween the x coordinate limits of the chair
+        //Check if the character is on the same y coordinate of the chair, give of take 10 y positions just incase the of a lag
+        if ((x.getxPos() >= 580 && x.getxPos() <= 650) && (x.getyPos() >= 90 && x.getyPos() <= 110)) {
+            //When the chaeracter meets the requirements, it can upgrade
+            return true;
+        }
+        //The player doesn't meet the requirement of the chair
+        return false;
     }
 }
