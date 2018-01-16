@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 /**
  *
@@ -23,16 +24,23 @@ public class Player {
  private int speedUP;
  private int qualUP;
  private int fameUP;
- public Player(String name, Texture icon){
+ private int dx;
+ private int dy;
+ private boolean facingLeft;
+ private float elapsed;
+ private TextureAtlas atlas;
+
+ public Player(String name){
      this.name = name;
      this.money = 50;
      this.fame = 0;
-     this.xPos = 0;
-     this.yPos = 0;
+     this.xPos = 100;
+     this.yPos = 100;
      this.icon = icon;
      speedUP = 0;
      qualUP = 0;
      fameUP = 0;
+     this.atlas = new TextureAtlas("packed/player.atlas");
  }
 //getters
  public int getMoney(){
