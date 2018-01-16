@@ -88,8 +88,7 @@ public class Song {
     }
 
     /**
-     * Method to find the upgrade time of the song, with the lowest time being
-     * 0
+     * Method to find the upgrade time of the song, with the lowest time being 0
      *
      * @param percent the percentage from the speed.
      * @return and integer time it takes, in seconds
@@ -123,12 +122,13 @@ public class Song {
         //The player doesn't meet the requirement of the chair
         return false;
     }
-   
+
     /**
      * Method to print out a record to show that a song has been purchased
+     *
      * @param batch a sprite batch for the textures
      */
-    public void render(SpriteBatch batch){
+    public void render(SpriteBatch batch) {
         batch.draw(image, 200, 500);
     }
 }

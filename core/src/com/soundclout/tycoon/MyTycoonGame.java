@@ -39,7 +39,6 @@ public class MyTycoonGame extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         furniture.render(camera);
-        
         camera.update();
         
         batch.setProjectionMatrix(camera.combined);
