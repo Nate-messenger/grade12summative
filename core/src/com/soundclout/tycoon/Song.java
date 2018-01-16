@@ -4,6 +4,9 @@
  */
 package com.soundclout.tycoon;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 /**
  * A class for our "rapper"'s song
  *
@@ -17,17 +20,20 @@ public class Song {
     private double minCost;
     private double minSale;
     private double time;
+    private Texture image;
 
     /**
-     * Constructor for song
+     * Constructor for song, with a name, and a min cost/sale both equal 50
+     * credits, a base rating of one star, a base time for upgrade of 30sec
      *
      * @param name name of song
      */
     public Song(String name) {
         this.name = name;
-        this.rating = 0;
+        this.rating = 1;
         this.minCost = this.minSale = 50;
         this.time = 30;
+        image = new Texture("Coda.jpg");
     }
 
     /**
@@ -82,9 +88,10 @@ public class Song {
     }
 
     /**
-     * Method to find the upgrade time of the song, with the lowest time being 0;
-     * 
-     * @param percent the percentage from the pharm.
+     * Method to find the upgrade time of the song, with the lowest time being
+     * 0
+     *
+     * @param percent the percentage from the speed.
      * @return and integer time it takes, in seconds
      */
     public double upgradeTime(double percent) {
@@ -96,5 +103,32 @@ public class Song {
             //Return a zero always when the time isn't less than zero
             return 0;
         }
+    }
+
+    /**
+     * Method to check if the player on the chair to be able to upgrade the
+     * song, based on the player coordinates
+     *
+     * @param x The player being passed in to access the x and y coordinates of
+     * the rapper
+     * @return A boolean to send to the main game
+     */
+    public boolean canUpgrade(Player x) {
+        //Check if the player is inbetween the x coordinate limits of the chair
+        //Check if the character is on the same y coordinate of the chair, give of take 10 y positions just incase the of a lag
+        if ((x.getxPos() >= 580 && x.getxPos() <= 650) && (x.getyPos() >= 90 && x.getyPos() <= 110)) {
+            //When the chaeracter meets the requirements, it can upgrade
+            return true;
+        }
+        //The player doesn't meet the requirement of the chair
+        return false;
+    }
+   
+    /**
+     * Method to print out a record to show that a song has been purchased
+     * @param batch a sprite batch for the textures
+     */
+    public void render(SpriteBatch batch){
+        batch.draw(image, 200, 500);
     }
 }
