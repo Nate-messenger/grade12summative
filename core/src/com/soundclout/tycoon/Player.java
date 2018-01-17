@@ -9,6 +9,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
 /**
  *
@@ -29,6 +30,11 @@ public class Player {
  private boolean facingLeft;
  private float elapsed;
  private TextureAtlas atlas;
+ private AtlasRegion stand;
+ private AtlasRegion standl;
+ private AtlasRegion[] walk;
+ private AtlasRegion[] walkl;
+
 
  public Player(String name){
      this.name = name;
@@ -40,7 +46,19 @@ public class Player {
      speedUP = 0;
      qualUP = 0;
      fameUP = 0;
+     elapsed = 0;
      this.atlas = new TextureAtlas("packed/player.atlas");
+     this.stand = atlas.findRegion("standing.png");
+     this.standl = this.stand;
+     this.standl.flip(true, false);
+     for (int i = 1; i < 4; i++) {
+         walk[i] = this.atlas.findRegion("walk_"+i);
+     }
+     for (int i = 1; i < 4; i++) {
+         AtlasRegion meme = walk[i];
+         meme.flip(true, false);
+         walkl[i]=meme;
+     }
  }
 //getters
  public int getMoney(){
@@ -80,19 +98,60 @@ public void spendMoney(int money){
 
 public void move(){
     if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-        this.xPos++;
+        this.xPos+=3;
+        if (elapsed==4) {
+            elapsed=1;
+        }else{
+            elapsed++;
+        }
+        this.facingLeft=false;
     }else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-        this.xPos--;
+        this.xPos-=3;
+        if (elapsed==4) {
+            elapsed=1;
+        }else{
+            elapsed++;
+        }
+        this.facingLeft=true;
+    }else{
+        elapsed=0;
     }
-    if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-        this.yPos++;
-    }else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-        this.yPos--;
-    }
+    
+    
     
 }
 public void render(SpriteBatch batch){
-    batch.draw(icon, xPos, yPos);
+    if(elapsed==0){
+        if(facingLeft){
+            batch.draw(standl, xPos, yPos);
+        }else{
+            batch.draw(stand, xPos, yPos);
+        }
+    }else if(elapsed==1){
+        if(facingLeft){
+            batch.draw(walkl[1], xPos, yPos);
+        }else{
+            batch.draw(walk[1], xPos, yPos);
+        }
+    }else if(elapsed==2){
+        if(facingLeft){
+            batch.draw(walkl[2], xPos, yPos);
+        }else{
+            batch.draw(walk[2], xPos, yPos);
+        }
+}else if(elapsed==3){
+        if(facingLeft){
+            batch.draw(walkl[3], xPos, yPos);
+        }else{
+            batch.draw(walk[3], xPos, yPos);
+        }
+}else if(elapsed==4){
+        if(facingLeft){
+            batch.draw(walkl[4], xPos, yPos);
+        }else{
+            batch.draw(walk[4], xPos, yPos);
+        }
+}
 }
 
 
