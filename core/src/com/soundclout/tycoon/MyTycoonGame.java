@@ -29,7 +29,7 @@ public class MyTycoonGame extends ApplicationAdapter {
         img = new Texture("badlogic.jpg");
         
         // create player at a position
-        p1 = new Player("player",img);
+        p1 = new Player("player");
         
         // generate the furniture
         furniture = new Furniture();

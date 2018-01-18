@@ -55,7 +55,7 @@ public class Furniture {
             // draw the furniture
             shape.rect(furniture[i].x, furniture[i].y, furniture[i].width, furniture[i].height);
         }
-        // tell the shaperenderer that we are done drawing the shapes
+        // tell the shaperenderer to stop drawing the shapes
         shape.end();
     }
 
