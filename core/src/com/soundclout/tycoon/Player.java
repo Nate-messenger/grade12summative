@@ -37,28 +37,40 @@ public class Player {
 
 
  public Player(String name){
+     facingLeft = false;
      this.name = name;
      this.money = 50;
      this.fame = 0;
      this.xPos = 100;
-     this.yPos = 100;
+     this.yPos = 99;
      this.icon = icon;
      speedUP = 0;
      qualUP = 0;
      fameUP = 0;
      elapsed = 0;
      this.atlas = new TextureAtlas("packed/player.atlas");
-     this.stand = atlas.findRegion("standing.png");
-     this.standl = this.stand;
-     this.standl.flip(true, false);
-     for (int i = 1; i < 4; i++) {
-         walk[i] = this.atlas.findRegion("walk_"+i);
+     this.stand = atlas.findRegion("standing");
+     AtlasRegion hold = this.stand;
+     hold.flip(true, false);
+     this.standl = hold;
+     AtlasRegion[] arrayHold = new AtlasRegion[5];
+     for (int i = 1; i <= 4; i++) {
+         System.out.println(i);
+         arrayHold[i] = this.atlas.findRegion("walk",i);
      }
-     for (int i = 1; i < 4; i++) {
-         AtlasRegion meme = walk[i];
-         meme.flip(true, false);
-         walkl[i]=meme;
+     
+     this.walk = arrayHold;
+     
+     for (int i = 1; i <= 4; i++) {
+         System.out.println(i);
+         arrayHold[i].flip(true, false);
      }
+     walkl = arrayHold;
+     stand.flip(true, false);
+     walk[1].flip(true, false);
+     walk[2].flip(true, false);
+     walk[3].flip(true, false);
+     walk[4].flip(true, false);
  }
 //getters
  public int getMoney(){
@@ -97,22 +109,24 @@ public void spendMoney(int money){
 }
 
 public void move(){
-    if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-        this.xPos+=3;
-        if (elapsed==4) {
+    if (Gdx.input.isKeyPressed(Input.Keys.D)&&this.xPos<720) {
+        this.xPos+=4;
+        if (elapsed==40) {
             elapsed=1;
         }else{
             elapsed++;
         }
         this.facingLeft=false;
-    }else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-        this.xPos-=3;
-        if (elapsed==4) {
+
+    }else if (Gdx.input.isKeyPressed(Input.Keys.A)&&this.xPos>0) {
+        this.xPos-=4;
+        if (elapsed==40) {
             elapsed=1;
         }else{
             elapsed++;
         }
         this.facingLeft=true;
+
     }else{
         elapsed=0;
     }
@@ -121,35 +135,48 @@ public void move(){
     
 }
 public void render(SpriteBatch batch){
+    move();
+
+    
     if(elapsed==0){
         if(facingLeft){
+            stand.flip(true, false);
             batch.draw(standl, xPos, yPos);
+            stand.flip(true, false);
         }else{
             batch.draw(stand, xPos, yPos);
         }
-    }else if(elapsed==1){
+    }else if(elapsed>=1&&elapsed<=10){
         if(facingLeft){
+            walk[1].flip(true, false);
             batch.draw(walkl[1], xPos, yPos);
+            walk[1].flip(true, false);
         }else{
             batch.draw(walk[1], xPos, yPos);
         }
-    }else if(elapsed==2){
+    }else if(elapsed>=11&&elapsed<=20){
         if(facingLeft){
+            walk[2].flip(true, false);
             batch.draw(walkl[2], xPos, yPos);
+            walk[2].flip(true, false);
         }else{
             batch.draw(walk[2], xPos, yPos);
         }
-}else if(elapsed==3){
+}else if(elapsed>=21&&elapsed<=30){
         if(facingLeft){
+            stand.flip(true, false);
+            batch.draw(standl, xPos, yPos);
+            stand.flip(true, false);
+        }else{
+            batch.draw(stand, xPos, yPos);
+        }
+}else if(elapsed>=31&&elapsed<=40){
+        if(facingLeft){
+            walk[3].flip(true, false);
             batch.draw(walkl[3], xPos, yPos);
+            walk[3].flip(true, false);
         }else{
             batch.draw(walk[3], xPos, yPos);
-        }
-}else if(elapsed==4){
-        if(facingLeft){
-            batch.draw(walkl[4], xPos, yPos);
-        }else{
-            batch.draw(walk[4], xPos, yPos);
         }
 }
 }
