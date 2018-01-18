@@ -12,21 +12,21 @@ public class MyTycoonGame extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture img;
     private Furniture furniture;
-    
+    private Player p1;
     // camera and viewport
     private OrthographicCamera camera;
     
     // game units
     private final int HEIGHT = 600;
     private final int WIDTH = 800;
-
+    
     @Override
     public void create() {
         batch = new SpriteBatch();
         img = new Texture("badlogic.jpg");
         // generate the furniture
         furniture = new Furniture();
-        
+        this.p1 = new Player("curtis");
         this.camera = new OrthographicCamera(WIDTH, HEIGHT);
         this.camera.position.set(WIDTH/2, HEIGHT/2, 0);
         this.camera.update();
@@ -43,7 +43,7 @@ public class MyTycoonGame extends ApplicationAdapter {
         
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-
+        this.p1.render(batch);
         batch.end();
     }
 
