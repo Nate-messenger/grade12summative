@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.util.Scanner;
 
 public class MyTycoonGame extends ApplicationAdapter {
 
@@ -17,6 +18,7 @@ public class MyTycoonGame extends ApplicationAdapter {
     private Player p1;
     // camera and viewport
     private OrthographicCamera camera;
+    private Song song;
     
     // game units
     private final int HEIGHT = 600;
@@ -32,21 +34,15 @@ public class MyTycoonGame extends ApplicationAdapter {
         this.camera = new OrthographicCamera(WIDTH, HEIGHT);
         this.camera.position.set(WIDTH/2, HEIGHT/2, 0);
         this.camera.update();
+        this.song = new Song("Song1");
         
     }
 
     @Override
     public void render() {
         BitmapFont font = new BitmapFont();
-        if((p1.getxPos() >= 580 && p1.getxPos() <= 650) && (p1.getyPos() >= 90 && p1.getyPos() <= 110)){
-            font.draw(batch, "DO U WANT TO BUY A SONG?", WIDTH/2, HEIGHT/2);
-            if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-               
-                font.draw(batch, "Want do you want your name to be called", WIDTH/2, HEIGHT/2);
-                
-                Song song = new Song(name);
-            }
-        }
+        Scanner input = new Scanner(System.in);
+        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -55,7 +51,11 @@ public class MyTycoonGame extends ApplicationAdapter {
         
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        Stirng money = (String)()
+        font.draw(batch, , 100, 500);
+        font.draw(batch, song.print(), 100, 600);
         this.p1.render(batch);
+        song.print();
         batch.end();
     }
 
