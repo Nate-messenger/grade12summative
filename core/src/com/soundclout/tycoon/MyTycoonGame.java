@@ -24,6 +24,10 @@ public class MyTycoonGame extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         img = new Texture("badlogic.jpg");
+        
+        // create player at a position
+        p1 = new Player("player");
+        
         // generate the furniture
         furniture = new Furniture();
         this.p1 = new Player("curtis");
@@ -35,6 +39,10 @@ public class MyTycoonGame extends ApplicationAdapter {
 
     @Override
     public void render() {
+        
+        // update player
+        p1.move();
+        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
