@@ -16,6 +16,9 @@ public class MyTycoonGame extends ApplicationAdapter {
     // camera and viewport
     private OrthographicCamera camera;
     
+    //create a texture so we can load in the background image
+    private Texture Background;
+    
     // game units
     private final int HEIGHT = 600;
     private final int WIDTH = 800;
@@ -34,7 +37,9 @@ public class MyTycoonGame extends ApplicationAdapter {
         this.camera = new OrthographicCamera(WIDTH, HEIGHT);
         this.camera.position.set(WIDTH/2, HEIGHT/2, 0);
         this.camera.update();
-        
+        //File from assets folder
+        Background = new Texture(Gdx.files.internal("Background.jpg"));
+
     }
 
     @Override
@@ -45,12 +50,19 @@ public class MyTycoonGame extends ApplicationAdapter {
         
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        furniture.render(camera);
-        camera.update();
         
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        //render in the background
+        batch.draw(Background,0,0);
+        batch.end();
+        
+        //render in the furniture
+        furniture.render(camera);
+        camera.update();
+        
+        batch.begin();
+        //render in the player
         this.p1.render(batch);
         batch.end();
     }
@@ -59,5 +71,6 @@ public class MyTycoonGame extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         img.dispose();
+        Background.dispose();
     }
 }
