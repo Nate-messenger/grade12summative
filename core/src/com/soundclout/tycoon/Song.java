@@ -35,7 +35,16 @@ public class Song {
         this.time = 30;
         image = new Texture("Coda.jpg");
     }
-
+/**
+ * Method to print out the information of the song
+ * @return the info 
+ */
+    public String print(){
+        String output = "";
+        output += "Song: "+ this.name +"\n";
+        output += "Rating: "+ this.rating +"\n";
+        return output;
+    }
     /**
      * Getter for the rate
      *
