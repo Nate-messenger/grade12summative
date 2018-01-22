@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import java.util.Scanner;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class MyTycoonGame extends ApplicationAdapter {
 
@@ -23,9 +23,11 @@ public class MyTycoonGame extends ApplicationAdapter {
     // game units
     private final int HEIGHT = 600;
     private final int WIDTH = 800;
+    private double rating;
+    private long startTime;
     
     @Override
-    public void create() {
+    public void create() {;
         batch = new SpriteBatch();
         img = new Texture("badlogic.jpg");
         // generate the furniture
@@ -35,26 +37,35 @@ public class MyTycoonGame extends ApplicationAdapter {
         this.camera.position.set(WIDTH/2, HEIGHT/2, 0);
         this.camera.update();
         this.song = new Song("Song1");
+        rating = song.getRate();
+        startTime = TimeUtils.millis();
+        
         
     }
 
     @Override
     public void render() {
         BitmapFont font = new BitmapFont();
-        Scanner input = new Scanner(System.in);
         
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+int[] T  =  new int[1000000];
+        for (int i = 0; i < T.length; i++) {
+            T[i] = i+1;
+        }
         furniture.render(camera);
         camera.update();
-        
+        String money =  new Integer(p1.getMoney()).toString();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        Stirng money = (String)()
-        font.draw(batch, , 100, 500);
+            if((double)((System.currentTimeMillis() - startTime) / 1000)%10 == 5.0){
+                p1.earnMoney((int)song.sales());
+            }
+        
+        font.draw(batch, "Money: "+money, 200, 600);
         font.draw(batch, song.print(), 100, 600);
         this.p1.render(batch);
+        Upgrade();
         song.print();
         batch.end();
     }
@@ -64,4 +75,15 @@ public class MyTycoonGame extends ApplicationAdapter {
         batch.dispose();
         img.dispose();
     }
+    
+    public void Upgrade(){
+    if(song.canUpgrade(p1) && p1.getMoney()>= song.upgradeCost()){
+        System.out.println("The upgrade cost is: "+song.upgradeCost());
+        System.out.println("Do you want to update");
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        p1.spendMoney((int)(song.upgradeCost()));
+        song.upgrade();
+        song.upgradeCost();
+    }}
+}
 }
