@@ -36,6 +36,7 @@ public class Furniture {
         //create music making equipment
         furniture[7] = new Rectangle(720, 200, 60, 60);
         furniture[8] = new Rectangle(680, 100, 100, 100);
+
         // initialize shaperenderer
         shape = new ShapeRenderer();
 
