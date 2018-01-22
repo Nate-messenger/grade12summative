@@ -12,24 +12,27 @@ package com.soundclout.tycoon;
 public class Quality extends Upgrade {
 
     private boolean purchased;
-   /***
-    * makes songs better
-    * @param name
-    * @param upPercent
-    * @param cost
-    * @param level 
-    */
+
+    /**
+     * *
+     * makes songs better
+     *
+     * @param name
+     * @param upPercent
+     * @param cost
+     * @param level
+     */
     public Quality(String name, double upPercent, double cost, int level) {
         super(name, upPercent, cost, level);
     }
 
-    
-    public String getName(){
+    public String getName() {
         return "Quality";
     }
+
     @Override
     public void Purchase() {
-        
+
         purchased = true;
     }
 

@@ -26,10 +26,10 @@ public class Speed extends Upgrade {
         super(name, upPercent, cost, level);
     }
 
-    public String getName(){
+    public String getName() {
         return "Speed";
     }
-    
+
     public int getLevel() {
         return super.getLevel();
     }

@@ -9,24 +9,27 @@ package com.soundclout.tycoon;
  *
  * @author nate
  */
-public class Fame extends  Upgrade {
-private boolean purchased;
+public class Fame extends Upgrade {
 
+    private boolean purchased;
 
-    /***
+    /**
+     * *
      * increase popularity gain per song
+     *
      * @param name
      * @param upPercent
      * @param cost
-     * @param level 
+     * @param level
      */
     public Fame(String name, double upPercent, double cost, int level) {
         super(name, upPercent, cost, level);
     }
 
-    public String getName(){
+    public String getName() {
         return "Fame";
     }
+
     public double getCost() {
         return this.cost;
     }
@@ -34,7 +37,7 @@ private boolean purchased;
     public double getPer() {
         return super.getPercent();
     }
-   
+
     public int getLevel() {
         return super.getLevel();
     }
@@ -49,5 +52,4 @@ private boolean purchased;
         purchased = true;
     }
 
-    
 }

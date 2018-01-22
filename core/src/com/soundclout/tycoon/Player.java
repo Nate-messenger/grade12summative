@@ -97,7 +97,7 @@ public class Player {
      return this.icon;
  }
 
-
+ 
 
 //logic stuff
 public void earnMoney(int money){
@@ -181,18 +181,17 @@ public void render(SpriteBatch batch){
 }
 }
 
+public int getSpeedL(){
+    return this.speedUP;
+}
+public int getFameL(){
+    return this.fameUP;
+}
+public int getQualityL(){
+    return this.qualUP;
+}
 
-public void upgrade(Upgrade u){
-    if(u.getName() =="Speed"){
-        this.speedUP++;
-    }
-    if(u.getName() =="Fame"){
-        this.fameUP++;
-    }
-    if(u.getName() =="Quality"){
-        this.qualUP++;
-    }
 }
 
 
-}
+

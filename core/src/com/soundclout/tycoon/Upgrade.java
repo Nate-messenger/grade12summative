@@ -22,8 +22,8 @@ public abstract class Upgrade {
         this.upPercent = upPercent;
         this.level = level;
     }
-    
-    public double cost(){
+
+    public double cost() {
         return this.cost;
     }
 
@@ -34,20 +34,23 @@ public abstract class Upgrade {
     public String getName() {
         return this.name;
     }
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @return the percent that the upgrade increases the stat by
      */
     public double getPercent() {
         return upPercent;
     }
 
-    
     public String toString() {
         String output = "--------" + "\n";
-        output += this.name + "  " + this.upPercent + "  " + this.cost + "  " + this.level + "\n";
+        output += this.name + "\n";
+        output += this.upPercent + "\n";
+        output += this.cost + "\n";
+        output += this.level + "\n";
         return output;
-
     }
 
     /**
