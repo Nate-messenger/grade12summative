@@ -58,14 +58,14 @@ int[] T  =  new int[1000000];
         String money =  new Integer(p1.getMoney()).toString();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-            if((double)((System.currentTimeMillis() - startTime) / 1000)%10 == 5.0){
+            while((double)((System.currentTimeMillis() - startTime) / 1000)%10 == 5.0){
                 p1.earnMoney((int)song.sales());
+                break;
             }
-        
+        Upgrade();
         font.draw(batch, "Money: "+money, 200, 600);
         font.draw(batch, song.print(), 100, 600);
         this.p1.render(batch);
-        Upgrade();
         song.print();
         batch.end();
     }
