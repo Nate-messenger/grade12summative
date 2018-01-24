@@ -1,4 +1,3 @@
-
 package com.soundclout.tycoon;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 
 public class MyTycoonGame extends ApplicationAdapter {
 
+    //Priavte variables
     private SpriteBatch batch;
     private Texture img;
     private Furniture furniture;
@@ -22,72 +22,80 @@ public class MyTycoonGame extends ApplicationAdapter {
     // camera and viewport
     private OrthographicCamera camera;
     private Song song;
-    
     // game units
     private final int HEIGHT = 600;
     private final int WIDTH = 800;
-    private double rating;
+    //Start time of the game
     private long startTime;
+    //Texture for backround
     private Texture Backround;
+    //Resizable array of songs
     private ArrayList<Song> album;
-    
+
     @Override
     public void create() {;
         batch = new SpriteBatch();
         img = new Texture("badlogic.jpg");
         // generate the furniture
         furniture = new Furniture();
+        //Create a player
         this.p1 = new Player("curtis");
         this.camera = new OrthographicCamera(WIDTH, HEIGHT);
-        this.camera.position.set(WIDTH/2, HEIGHT/2, 0);
+        this.camera.position.set(WIDTH / 2, HEIGHT / 2, 0);
         this.camera.update();
+        //Create a song to start
         this.song = new Song("Song1");
-        rating = song.getRate();
+        //Call image for backround
         Backround = new Texture(Gdx.files.internal("333950.jpg"));
+        //Time the game starts
         startTime = TimeUtils.millis();
+        //Resizabale array
         album = new ArrayList<Song>();
+        //Add the first song to start the game with a song
         album.add(song);
-        
+
     }
 
     @Override
     public void render() {
         BitmapFont font = new BitmapFont();
-        
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(camera.combined);
+        //Batch to draw the backround
         batch.begin();
         batch.draw(Backround, 0, 0);
         batch.end();
         furniture.render(camera);
         camera.update();
-        String money =  new Integer(p1.getMoney()).toString();
-        
+        //Creae a string to read out the money
+        String money = new Integer(p1.getMoney()).toString();
+
         batch.begin();
-            while((double)((System.currentTimeMillis() - startTime) / 1000)%10 == 5.0){
-                p1.earnMoney(((int)(song.sales()))/20);
-                break;
+        //While loop to constantly give the player money every 10 seocnds
+        while ((double) ((System.currentTimeMillis() - startTime) / 1000) % 10 == 5.0) {
+            int temp = 0;
+            for (int i = 0; i < album.size(); i++) {
+                temp = temp + album.get(i).sales();
             }
-        if(canBuy(p1) == true){
-            font.setColor(Color.BLACK);
-            font.draw(batch, "Make a song for $50 ", 400, 350);
-            font.draw(batch, "Press enter to buy", 400, 300);
-            if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            Song a = new Song("name");
-            album.add(a);
-            p1.spendMoney(50);
-        }}
+            //Add money earned by the song to the players money
+            p1.earnMoney(((int) (song.sales())) / 20);
+            break;
+        }
+        //Method to buy the song
+        canBuy(font, p1);
+        //Upgrade the songs in the album
         for (int i = 0; i < album.size(); i++) {
-           Upgrade(batch,font,album.get(i)); 
+            Upgrade(batch, font, album.get(i));
         }
         font.setColor(Color.BLACK);
-        font.draw(batch, "Money: "+money, 200, 600);
-        //font.draw(batch, song.print(), 100, 600);
+        font.draw(batch, "Money: " + money, 200, 600);
+        //Create variable for the spacing between the song info
         int space = 0;
+        //Print out all the songs in the album's infomation
         for (int i = 0; i < album.size(); i++) {
-            font.draw(batch, album.get(i).print(), 300+space, 600);
-            space = space+100;
+            font.draw(batch, album.get(i).print(), 300 + space, 600);
+            space = space + 100;
         }
         this.p1.render(batch);
         batch.end();
@@ -99,27 +107,47 @@ public class MyTycoonGame extends ApplicationAdapter {
         img.dispose();
         Backround.dispose();
     }
-    
-    public void Upgrade(SpriteBatch batch,BitmapFont font, Song x){
-    if(x.canUpgrade(p1) && p1.getMoney()>= x.upgradeCost()){
-        font.setColor(Color.BLACK);
-        font.draw(batch, "The upgrade cost is: "+(int)x.upgradeCost(), 200, 350);
-        font.draw(batch, "Press space to upgrade", 200, 300);
-//        System.out.println("The upgrade cost is: "+song.upgradeCost());
-//        System.out.println("Do you want to upgrade?");
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-        p1.spendMoney((int)(x.upgradeCost()));
-        x.upgrade();
-        x.upgradeCost();
-        
-    }}
-}
-    
-    public Boolean canBuy(Player x){
-        if((x.getxPos() >= 580 && x.getxPos() <= 650) && (x.getyPos() >= 90 && x.getyPos() <= 110) && p1.getMoney()>= 50){
-        return true;
-    }else{
-            return false;
+
+    /**
+     * A method to see if the song can be upgraded and if so to upgrade the song
+     *
+     * @param batch the sprite batch
+     * @param font the font
+     * @param x the song
+     */
+    public void Upgrade(SpriteBatch batch, BitmapFont font, Song x) {
+        if (x.canUpgrade(p1) && p1.getMoney() >= x.upgradeCost()) {
+            font.setColor(Color.BLACK);
+            font.draw(batch, "The upgrade cost is: " + (int) x.upgradeCost(), 200, 350);
+            font.draw(batch, "Press space to upgrade", 200, 300);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                p1.spendMoney((int) (x.upgradeCost()));
+                x.upgrade();
+                x.upgradeCost();
+
+            }
+        }
+    }
+
+    /**
+     * Method to see if the song can be bough and buy it
+     *
+     * @param x the player
+     */
+    public void canBuy(BitmapFont font, Player x) {
+        if ((x.getxPos() >= 580 && x.getxPos() <= 650) && (x.getyPos() >= 90 && x.getyPos() <= 110) && p1.getMoney() >= 50) {
+            font.setColor(Color.BLACK);
+            font.draw(batch, "Make a song for $50 ", 400, 350);
+            font.draw(batch, "Press enter to buy", 400, 300);
+            //When the enter key is pressed the song is bought
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                //Name the song
+                Song a = new Song("name");
+                //add the song to the ablum
+                album.add(a);
+                //Spend the money from the player
+                p1.spendMoney(50);
+            }
         }
     }
 }
