@@ -1,3 +1,4 @@
+
 package com.soundclout.tycoon;
 
 import com.badlogic.gdx.ApplicationAdapter;
