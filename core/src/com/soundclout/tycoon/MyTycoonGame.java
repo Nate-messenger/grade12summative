@@ -74,12 +74,14 @@ public class MyTycoonGame extends ApplicationAdapter {
         batch.begin();
         //While loop to constantly give the player money every 10 seocnds
         while ((double) ((System.currentTimeMillis() - startTime) / 1000) % 10 == 5.0) {
-            int temp = 0;
+            //Variable for the sales
+            int sales = 0;
+            //Add the sales of each song
             for (int i = 0; i < album.size(); i++) {
-                temp = temp + album.get(i).sales();
+                sales = sales + (int)(album.get(i).sales());
             }
-            //Add money earned by the song to the players money
-            p1.earnMoney(((int) (song.sales())) / 20);
+            //Add money earned by the album to the players money
+            p1.earnMoney(sales/4);
             break;
         }
         //Method to buy the song
@@ -109,21 +111,31 @@ public class MyTycoonGame extends ApplicationAdapter {
     }
 
     /**
-     * A method to see if the song can be upgraded and if so to upgrade the song
+     * A method to see if the album can be upgraded and if so to upgrade the album, the songs in the album
      *
      * @param batch the sprite batch
      * @param font the font
      * @param x the song
      */
     public void Upgrade(SpriteBatch batch, BitmapFont font, Song x) {
-        if (x.canUpgrade(p1) && p1.getMoney() >= x.upgradeCost()) {
+        //Variabole for the cost 
+        int cost = 0;
+        //Gather the total cost of the songs
+                for (int i = 0; i < album.size(); i++) {
+                    cost = cost+(int)(album.get(i).upgradeCost());
+                }
+                //Chack if it can be upgraded by position and the cost
+        if (x.canUpgrade(p1) && p1.getMoney() >= cost) {
             font.setColor(Color.BLACK);
-            font.draw(batch, "The upgrade cost is: " + (int) x.upgradeCost(), 200, 350);
+            font.draw(batch, "The upgrade cost is: " + cost, 200, 350);
             font.draw(batch, "Press space to upgrade", 200, 300);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                p1.spendMoney((int) (x.upgradeCost()));
-                x.upgrade();
-                x.upgradeCost();
+                p1.spendMoney(cost);
+                //Go through each spot in the album and upgrade it
+                for (int i = 0; i < album.size(); i++) {
+                    album.get(i).upgrade();
+                    album.get(i).upgradeCost();
+                }
 
             }
         }
@@ -135,6 +147,7 @@ public class MyTycoonGame extends ApplicationAdapter {
      * @param x the player
      */
     public void canBuy(BitmapFont font, Player x) {
+        //See if a song can be bough through position and through cost
         if ((x.getxPos() >= 580 && x.getxPos() <= 650) && (x.getyPos() >= 90 && x.getyPos() <= 110) && p1.getMoney() >= 50) {
             font.setColor(Color.BLACK);
             font.draw(batch, "Make a song for $50 ", 400, 350);
