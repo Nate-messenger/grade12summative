@@ -42,7 +42,7 @@ public class Song {
     public String print(){
         String output = "";
         output += "Song: "+ this.name +"\n";
-        output += "Rating: "+ this.rating +"\n";
+        output += "Rating: "+ (float)this.rating +"\n";
         return output;
     }
     /**
