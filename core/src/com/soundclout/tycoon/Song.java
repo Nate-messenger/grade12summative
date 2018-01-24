@@ -68,11 +68,11 @@ public class Song {
      * points of a star Before increasing by a whole star ie: 1.0, 1.2, 1.4 ....
      * 2.0...5.0
      *
-     * @return the new rate of the song
      */
-    public double upgrade() {
-        return this.rating + 0.2;
-    }
+    public void upgrade() {
+        if(this.rating<5.0){
+        this.rating =this.rating + 0.2;
+    }}
 
     /**
      * Method to find how much profit the song will receive based on the current
@@ -124,7 +124,7 @@ public class Song {
     public boolean canUpgrade(Player x) {
         //Check if the player is inbetween the x coordinate limits of the chair
         //Check if the character is on the same y coordinate of the chair, give of take 10 y positions just incase the of a lag
-        if ((x.getxPos() >= 580 && x.getxPos() <= 650) && (x.getyPos() >= 90 && x.getyPos() <= 110)) {
+        if ((x.getxPos() >= 580 && x.getxPos() <= 650) && (x.getyPos() >= 90 && x.getyPos() <= 110)&&this.rating<5.0) {
             //When the chaeracter meets the requirements, it can upgrade
             return true;
         }
