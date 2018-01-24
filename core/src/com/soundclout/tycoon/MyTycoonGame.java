@@ -71,7 +71,7 @@ public class MyTycoonGame extends ApplicationAdapter {
             }
         if(canBuy(p1) == true){
             font.setColor(Color.BLACK);
-            font.draw(batch, "Make asong for $50 ", 400, 350);
+            font.draw(batch, "Make a song for $50 ", 400, 350);
             font.draw(batch, "Press enter to buy", 400, 300);
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             Song a = new Song("name");
