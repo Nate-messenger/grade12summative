@@ -13,17 +13,17 @@ public abstract class Upgrade {
 
     private double upPercent;
     private String name;
-    public double cost;
+    public int cost;
     private int level;
 
-    public Upgrade(String name, double upPercent, double cost, int level) {
+    public Upgrade(String name, double upPercent, int cost, int level) {
         this.cost = cost;
         this.name = name;
         this.upPercent = upPercent;
         this.level = level;
     }
 
-    public double cost() {
+    public int cost() {
         return this.cost;
     }
 

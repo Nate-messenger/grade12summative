@@ -7,6 +7,7 @@ package com.soundclout.tycoon;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -16,19 +17,20 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
  * @author millc9988
  */
 public class Player {
+    //storing startup stuff
  private int money;
  private int xPos;
  private int yPos;
  private String name;
  private int fame;
- private Texture icon;
+ //storing upgrades
  private int speedUP;
  private int qualUP;
  private int fameUP;
- private int dx;
- private int dy;
+ //animation things
  private boolean facingLeft;
  private float elapsed;
+ //storing the frames for animations
  private TextureAtlas atlas;
  private AtlasRegion stand;
  private AtlasRegion standl;
@@ -37,17 +39,19 @@ public class Player {
 
 
  public Player(String name){
+     //filling the initial variables
      facingLeft = false;
      this.name = name;
      this.money = 50;
      this.fame = 0;
      this.xPos = 100;
      this.yPos = 99;
-     this.icon = icon;
      speedUP = 0;
      qualUP = 0;
      fameUP = 0;
      elapsed = 0;
+     
+     //setting up the animation textures
      this.atlas = new TextureAtlas("packed/player.atlas");
      this.stand = atlas.findRegion("standing");
      AtlasRegion hold = this.stand;
@@ -71,6 +75,7 @@ public class Player {
      walk[2].flip(true, false);
      walk[3].flip(true, false);
      walk[4].flip(true, false);
+     //animation things finished
  }
 //getters
  public int getMoney(){
@@ -92,12 +97,7 @@ public class Player {
  public String getName(){
      return this.name;
  }
- 
- public Texture getIcon(){
-     return this.icon;
- }
 
- 
 
 //logic stuff
 public void earnMoney(int money){
@@ -107,7 +107,7 @@ public void earnMoney(int money){
 public void spendMoney(int money){
     this.money-=money;
 }
-
+//moving left if a is pressed and right if d is pressed and instructing the animation accordingly
 public void move(){
     if (Gdx.input.isKeyPressed(Input.Keys.D)&&this.xPos<720) {
         this.xPos+=4;
@@ -134,10 +134,11 @@ public void move(){
     
     
 }
+//animations!
 public void render(SpriteBatch batch){
     move();
-
     
+    //if they arent moving stand
     if(elapsed==0){
         if(facingLeft){
             stand.flip(true, false);
@@ -146,6 +147,7 @@ public void render(SpriteBatch batch){
         }else{
             batch.draw(stand, xPos, yPos);
         }
+        //drawing different run animations 
     }else if(elapsed>=1&&elapsed<=10){
         if(facingLeft){
             walk[1].flip(true, false);
@@ -181,6 +183,18 @@ public void render(SpriteBatch batch){
 }
 }
 
+//letting the upgrades be usable
+public void upgrade(Upgrade u){
+    if(u.getName() =="Speed"){
+        this.speedUP++;
+    }
+    if(u.getName() =="Fame"){
+        this.fameUP++;
+    }
+    if(u.getName() =="Quality"){
+        this.qualUP++;
+    }
+}
 public int getSpeedL(){
     return this.speedUP;
 }

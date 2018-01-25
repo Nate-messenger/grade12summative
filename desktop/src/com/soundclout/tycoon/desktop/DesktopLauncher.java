@@ -7,7 +7,7 @@ import com.soundclout.tycoon.MyTycoonGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-                TexturePacker.process("memes", "packed", "player");
+               // TexturePacker.process("memes", "packed", "player");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new MyTycoonGame(), config);
 	}

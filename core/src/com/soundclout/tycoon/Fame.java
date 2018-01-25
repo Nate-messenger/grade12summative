@@ -22,7 +22,7 @@ public class Fame extends Upgrade {
      * @param cost
      * @param level
      */
-    public Fame(String name, double upPercent, double cost, int level) {
+    public Fame(String name, double upPercent, int cost, int level) {
         super(name, upPercent, cost, level);
     }
 

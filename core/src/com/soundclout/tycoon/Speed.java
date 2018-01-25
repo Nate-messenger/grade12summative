@@ -22,7 +22,7 @@ public class Speed extends Upgrade {
      * @param cost cost of the upgrade
      * @param level level of the upgrade from 1 - 10
      */
-    public Speed(String name, double upPercent, double cost, int level) {
+    public Speed(String name, double upPercent, int cost, int level) {
         super(name, upPercent, cost, level);
     }
 

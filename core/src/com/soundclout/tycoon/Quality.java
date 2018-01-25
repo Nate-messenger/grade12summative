@@ -22,7 +22,7 @@ public class Quality extends Upgrade {
      * @param cost
      * @param level
      */
-    public Quality(String name, double upPercent, double cost, int level) {
+    public Quality(String name, double upPercent, int cost, int level) {
         super(name, upPercent, cost, level);
     }
 
